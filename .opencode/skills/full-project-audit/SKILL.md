@@ -2,7 +2,7 @@
 name: full-project-audit
 description: Use for a structured full-project audit covering application security, dependencies, correctness, frontend rendering, WCAG accessibility, tests, and documentation across common software stacks.
 license: MIT
-compatibility: Requires OpenCode; optional local scanners depend on the target stack.
+compatibility: Works with any agent that can read project files; optional local scanners depend on the target stack and available tools.
 ---
 
 # Full Project Audit
