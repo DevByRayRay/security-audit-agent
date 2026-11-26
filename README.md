@@ -1,5 +1,7 @@
 # Full Audit Agent
 
+![Full Audit Agent banner](banner.png)
+
 A reusable, client-independent project audit skill for AI coding agents. It covers security, correctness, accessibility, and maintainability across software stacks, with optional native adapters for OpenCode, Claude Code, and GitHub Copilot.
 
 ## Install
