@@ -2,19 +2,53 @@
 
 A reusable, client-independent project audit skill for AI coding agents. It covers security, correctness, accessibility, and maintainability across software stacks, with optional native adapters for OpenCode, Claude Code, and GitHub Copilot.
 
-## Portable skill
+## Install
 
-The canonical portable skill is `.agent/skills/full-project-audit/SKILL.md`. Identical copies are included in common client skill directories:
+### Recommended: install with `skills`
+
+Install the skill into the current project. The installer will ask which supported AI clients to configure:
+
+```bash
+npx skills add DevByRayRay/security-audit-agent --skill full-project-audit
+```
+
+Or select clients explicitly:
+
+```bash
+npx skills add DevByRayRay/security-audit-agent \
+  --skill full-project-audit \
+  -a codex \
+  -a claude-code \
+  -a github-copilot \
+  -a opencode \
+  -a mistral-vibe
+```
+
+To install it globally for your user instead of in the current project, add `-g`:
+
+```bash
+npx skills add DevByRayRay/security-audit-agent --skill full-project-audit -g
+```
+
+The `skills` installer requires Node.js 22.20 or later. It installs the skill files and configures the selected client's skill directory. For example, project installations commonly use `.agents/skills/`; client-specific paths may differ.
+
+### Manual installation
+
+If you do not use Node.js or the `skills` installer, copy the skill folder from this repository into your agent's skill directory. The portable copy is `.agents/skills/full-project-audit/`; Claude Code and GitHub Copilot-specific copies are also included below. Restart or reload the client if it does not detect new skills automatically.
+
+### Supported client paths
+
+The repository includes copies for common client-specific paths as well as the shared Agent Skills location:
 
 | Client / format | Skill path | How to run |
 | --- | --- | --- |
-| Generic agent skill | `.agent/skills/full-project-audit/` | Load the skill and ask the agent to audit the current project. |
-| Codex and compatible agents | `.agents/skills/full-project-audit/` | Ask the agent to use `$full-project-audit`, or request a full audit. |
+| Shared Agent Skills format (Codex and compatible agents) | `.agents/skills/full-project-audit/` | Ask the agent to use `$full-project-audit`, or request a full audit. |
 | Claude Code | `.claude/skills/full-project-audit/` | Run `/full-project-audit`. |
 | GitHub Copilot | `.github/skills/full-project-audit/` | Ask Copilot to use the `full-project-audit` skill. |
 | OpenCode | `.opencode/skills/full-project-audit/` | Use `/full-audit` (command and agent adapter included). |
+| Mistral Vibe | `.vibe/skills/full-project-audit/` | Ask Vibe to use the `full-project-audit` skill. |
 
-Copy the folder for your client into the root of the project being audited. If your client does not auto-discover skills, provide the `SKILL.md` contents as its project instructions or attach the file as context. Keep the skill text in sync with the canonical `.agent` copy when adapting it.
+For other clients, see their skill directory conventions and install the `.agents/skills/full-project-audit/` copy where supported. If a client cannot load skills, provide `SKILL.md` as its project instructions or attach it as context.
 
 ## Native adapters
 
@@ -22,7 +56,7 @@ Copy the folder for your client into the root of the project being audited. If y
 - **Claude Code:** `.claude/agents/project-auditor.md` provides an optional named agent.
 - **GitHub Copilot:** `.github/agents/project-auditor.agent.md` provides an optional custom agent.
 
-For **ChatGPT**, use a coding client with access to the project files (such as Codex) and its skill support, or provide the skill in the conversation/project instructions. The ChatGPT web conversation alone cannot inspect a local repository unless its files are made available. For **Mistral** and other clients without a compatible skill loader, paste or attach the canonical skill as the agent's task instructions; available local tools determine whether it can inspect files or run checks.
+For **ChatGPT**, use Codex with the skill installed, or provide the skill and project files through a ChatGPT workflow that supports them. A regular ChatGPT conversation cannot inspect a local checkout unless you make the relevant files available. Mistral Vibe is supported by the `skills` installer; other Mistral clients can use the manual instructions above when they support file context.
 
 ## Run an audit
 
